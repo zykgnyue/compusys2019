@@ -1,9 +1,11 @@
-//youcan find source code at:https://github.com/zykgnyue/compusys2019
+//youcan find source code at:
+//https://github.com/zykgnyue/compusys2019
 #include <cstdio>
 
 using namespace std;
 void showbytes(unsigned char *p, size_t len);
 unsigned long bitCount(unsigned long x);
+unsigned long bitCount4(unsigned long x);
 void showFloatComponents(float x);
 void inplace_swap(int *x,int *y);
 void reverseArray(int *ary,int len);
@@ -58,9 +60,10 @@ int main()
 	int x=55;
 	int y=66;
 #endif
-	unsigned long xBits=bitCount(0x5555555555555555L);
-	printf("bit number=%ld\n",xBits);
-	xBits=bitCount(0xFFFFFFFFFFFFFFFFL);
+	unsigned long xBits;
+	//=bitCount(0x5555555555555555L);
+	//printf("bit number=%ld\n",xBits);
+	xBits=bitCount4(0xFFFFFFFFFFFFFFFFL);
 	printf("bit number=%ld\n",xBits);
 //	reverseArray(ary,sizeof(ary)/sizeof(int));
 
@@ -77,31 +80,16 @@ void showFloatComponents(float x)
 	//3.show float type:denormalized/normalized/inf/nan
 }
 
-//not implemented
-unsigned long bitCount4(unsigned long x)
-{
-	long val=0;
-	for(int i=0;i<4;i++)
-	{
-		val +=x&0x0101010101010101L;
-		x>>=1;
-
-	}
-	val +=(val>>32);
-	val +=(val>>16);
-	val +=(val>>8);
-	return val&0xFF;
-}
-
 unsigned long bitCount(unsigned long x)
 {
 	long val=0;
 	for(int i=0;i<8;i++)
 	{
-		printf("x=%.16lx ",x);
-		printf("mask(x)=%.16lx \n",x&0x0101010101010101L);
+		//printf("x=%.16lx ",x);
+		//printf("mask(x)=%.16lx \n",x&0x0101010101010101L);
 		val +=x&0x0101010101010101L;
-		printf("Val=%.16lx\n",val);
+		//val +=x & 0x0000000000000001L;
+		//printf("Val=%.16lx\n",val);
 		x>>=1;
 
 	}
@@ -111,6 +99,30 @@ unsigned long bitCount(unsigned long x)
 	printf("val=%.16lx\n",val);
 	val +=(val>>8);
 	printf("val=%.16lx\n",val);
+	return val&0xFF;
+}
+
+
+
+
+
+
+//not implemented
+unsigned long bitCount4(unsigned long x)
+{
+	long val=0;
+	for(int i=0;i<4;i++)
+	{
+		val +=x&0x1111111111111111L;
+		x>>=1;
+
+	}
+	val +=(val>>4);
+	val &=0x0F0F0F0F0F0F0F0FL;
+	//orginal
+	val +=(val>>32);
+	val +=(val>>16);
+	val +=(val>>8);
 	return val&0xFF;
 }
 
