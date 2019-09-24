@@ -9,6 +9,7 @@ unsigned long bitCount4(unsigned long x);
 void showFloatComponents(float x);
 void inplace_swap(int *x,int *y);
 void reverseArray(int *ary,int len);
+unsigned replace_byte(unsigned x,int i,unsigned char b);
 
 int ary[]={1,2,3,4,5,6,7,8,9,10,11};
 void reverseArray(int *ary,int len)
@@ -60,6 +61,9 @@ int main()
 	int x=55;
 	int y=66;
 #endif
+	int repint=replace_byte(0x12345678,3,0xff);
+	printf("replace byte=%x\n",repint);
+
 	unsigned long xBits;
 	//=bitCount(0x5555555555555555L);
 	//printf("bit number=%ld\n",xBits);
@@ -80,6 +84,11 @@ void showFloatComponents(float x)
 	//3.show float type:denormalized/normalized/inf/nan
 }
 
+unsigned replace_byte(unsigned x,int i,unsigned char b)
+{
+	i *=8;
+	return (x&~(0xFF<<i)|(b<<i));
+}
 unsigned long bitCount(unsigned long x)
 {
 	long val=0;
