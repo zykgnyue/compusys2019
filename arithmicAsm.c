@@ -1,3 +1,8 @@
+unsigned short int movword(unsigned short int x, unsigned long *y)
+{
+    *y =x;
+    return x+2;
+}
 long m12(long x)
 {
     return x*12;
