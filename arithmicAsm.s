@@ -17,8 +17,8 @@ movword:
 m12:
 .LFB1:
 	.cfi_startproc
-	leaq	(%rdi,%rdi,2), %rdx
-	leaq	0(,%rdx,4), %rax
+	leaq	(%rdi,%rdi,2), %rax
+	salq	$2, %rax
 	ret
 	.cfi_endproc
 .LFE1:
@@ -28,12 +28,12 @@ m12:
 arith:
 .LFB2:
 	.cfi_startproc
-	leaq	(%rdi,%rsi), %rax
-	addq	%rdx, %rax
 	leaq	(%rsi,%rsi,2), %rcx
 	salq	$4, %rcx
-	leaq	4(%rdi,%rcx), %rdx
-	imulq	%rdx, %rax
+	leaq	4(%rdi,%rcx), %rcx
+	addq	%rsi, %rdi
+	leaq	(%rdi,%rdx), %rax
+	imulq	%rcx, %rax
 	ret
 	.cfi_endproc
 .LFE2:
